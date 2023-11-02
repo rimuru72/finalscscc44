@@ -323,7 +323,6 @@ class Ui_MainWindow(object):
     
     def reasonpredictfn(self, str_in, model):
         input = [str_in]
-        print(input)
         prediction = model.predict(input)
 
         self.predictout.setText('')
