@@ -204,6 +204,8 @@ class Ui_MainWindow(object):
         self.predictout.setVisible(True)
         self.copyright.setVisible(True)
         self.label.setVisible(True)
+        try: self.predictbtn.clicked.disconnect()
+        except Exception: pass
         self.predictbtn.clicked.connect(lambda: self.collegepredictfn(self.OldCollege.currentIndex(), colmodel))
     
     def course2coursetrue(self):
@@ -231,6 +233,8 @@ class Ui_MainWindow(object):
         self.copyright.setVisible(True)
         self.label.setVisible(True)
 
+        try: self.predictbtn.clicked.disconnect()
+        except Exception: pass
         self.predictbtn.clicked.connect(lambda: self.coursepredictfn(self.OldCourse.currentIndex(), coumodel))
     
     def reason2coursetrue(self):
@@ -258,9 +262,13 @@ class Ui_MainWindow(object):
         self.copyright.setVisible(True)
         self.label.setVisible(True)
 
-        self.predictbtn.clicked.connect(lambda: self.reasonpredictfn(self.textEdit.toPlainText(), coumodel))
+        try: self.predictbtn.clicked.disconnect()
+        except Exception: pass
+        self.predictbtn.clicked.connect(lambda: self.reasonpredictfn(self.textEdit.toPlainText(), resmodel))
     
     def abouttrue(self):
+        try: self.predictbtn.clicked.disconnect()
+        except Exception: pass
         #college2college or all except about contents
         self.predictbtn.setVisible(False)
         self.OldCollege.setVisible(False)
@@ -314,9 +322,9 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">%s</p></body></html>" % prediction[0]))
     
     def reasonpredictfn(self, str_in, model):
-        input = str_in
-        final_input = np.array(input)
-        prediction = model.predict(final_input)
+        input = [str_in]
+        print(input)
+        prediction = model.predict(input)
 
         self.predictout.setText('')
         QtCore.QTimer.singleShot(300, lambda:
